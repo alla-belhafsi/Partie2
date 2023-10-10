@@ -7,50 +7,54 @@ class Voiture {
     private string $_marque;
     private string $_modèle;
     private string $_nbPortes;
-    private bool $_statutD = false;
-    private bool $_statutS = true;
-    private int $_accelerer;
+    private bool $_statutD = FALSE;
     private string $_vitesseActuelle;
-    private string $_infov1;
-    private string $_infov2;
     
     public function vitesseActuelle() {
         $this->_vitesseActuelle;
-        echo "La vitesse du véhicule ".$this->_marque." ".$this->_modèle." actuelle est de :".$this->_vitesseActuelle." Km/h<br><br>";
+        echo "Sa vitesse actuelle est de :".$this->_vitesseActuelle." Km/h<br><br>";
     }
 
     public function demarrer() {
-        $this->_statutD = true;
-        echo "<br>Le véhicule ".$this->_marque." est démarré.<br>";
-    }
-    
-    public function accelerer() {
-        $this->_accelerer;
-        echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." accélère de<br>";
+        if($this->_statutD = TRUE) {
+            echo "<br>Le véhicule ".$this->_marque." est démarré.<br>";
+        }else{
+            echo "<br>Le véhicule ".$this->_marque." est stoppé.<br>";
+        
+        }
     }
 
+    public function accelerer(int $accel) {
+        if($this->_statutD = FALSE) {
+            echo "Le véhicule ".$this->_marque." doit être allumé pour accélérer";
+        }
+        else{
+        echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." accélère de ".$this->_vitesseActuelle+=$accel." <br>";
+        }
+    }
+
+
     public function stopper() {
-        $this->_statutS = false;
+        $this->_statutD = false;
+        $this->_vitesseActuelle = 0;
         echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." est stoppé.<br>";
     }
 
-    public function infov1() {
+    public function info() {
         $this->_marque." ".$this->_modèle." ".$this->_nbPortes." <br>";
-        echo "<br>Nom et modèle du véhicule : ".$this->_marque." ".$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." ";
-    }
-
-    public function infov2() {
-        $this->_marque." ".$this->_modèle." ".$this->_nbPortes." <br>";
-        echo "Nom et modèle du véhicule : ".$this->_marque." ".$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." ";
+        echo "<br>Nom et modèle du véhicule : ".$this->_marque." "
+        .$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." "
+        .$this->demarrer().$this->vitesseActuelle();
     }
      
-    public function __construct(string $marque,string $modèle, string $nbPortes, string $vitesseActuelle ) {
+    public function __construct(string $marque,string $modèle, string $nbPortes, string $vitesseActuelle, int $accel) {
         $this->_marque = $marque;
         $this->_modèle = $modèle;
         $this->_nbPortes = $nbPortes;
         $this->_vitesseActuelle = $vitesseActuelle;
+        $this->_accel = $accel;
     }
-    
+
     public function getMarque() {
         return $this->_marque;
     }
@@ -81,24 +85,13 @@ class Voiture {
 
 }    
 
-$v1 = new Voiture("Peugeot","408","5","50");
-$v2 = new Voiture("Citroën","C4","3","0");
-
-echo $v1;
-echo $v2;
+$v1 = new Voiture("Peugeot","408","5","50","20");
+$v2 = new Voiture("Citroën","C4","3","0","0");
 
 
-// $v1->accelerer();
-// $v1->stopper();
 
-// $v2->demarrer();
-// $v2->accelerer();
 
-echo "<br>Infos véhicule 1 <br>";
-$v1->infov1();
-$v1->demarrer();
-$v1->vitesseActuelle();
-echo "<br>Infos véhicule 2 <br><br>";
-$v2->infov2();
-$v2->stopper();
-$v2->vitesseActuelle();
+
+
+$v1->info();
+//$v2->info();
