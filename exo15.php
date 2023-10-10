@@ -7,10 +7,10 @@ L'adresse <b>contact@elan</b> est une adresse e-mail invalide</p>
 
 $email = 'elan@elan-formation.fr';
 
-// Remove all illegal characters from email
+// efface les caractères interdits
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-// Validate e-mail
+// Valide l'adresse e-mail
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo("L'adresse $email est une adresse e-mail valide");
 } else {
