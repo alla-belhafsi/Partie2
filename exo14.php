@@ -15,13 +15,15 @@ echo $ve1->getInfos();</p>
 class Voiture {
     private string $_marque;
     private string $_modèle;
+    private string $_autonomie;
     private string $_getInfos;
    
 
-
-    public function __construct(string $marque, string $modèle) {
+    public $attr1;
+    public function __construct(string $marque, string $modèle, string $autonomie) {
         $this->_marque = $marque;
         $this->_modèle = $modèle;
+        $this->_autonomie = $autonomie;
     }
 
     public function getMarque() {
@@ -35,20 +37,34 @@ class Voiture {
     public function getModèle() {
         return $this->_modèle;
     }
+    
     public function setModèle(string $_modèle) {
         $this->_modèle = $_modèle;
     }
+    
+    public function getAutonomie(){
+        return $this->_autonomie;
+    }
+
+    public function setAutonomie(){
+        $this->_autonomie = $autonomie;
+    }
+    
     public function getInfos() {
-        return $this->_marque." ".$this->_modèle." ".$this->_autonomie."<br>";
+        return $this->_marque." ".$this->_modèle." ".$this->_autonomie." ";
     }
 }
 class VoitureElec extends Voiture {
-    private string $_autonomie;
-
+    
+    public $attr2;
+    public function __contruct($attr1, $attr2) {
+        parent::__construct($attr1);
+        $this->attr2 = $attr2;
+    }
     
 }    
 
-$v1 = new Voiture("Peugeot","408");
+$v1 = new Voiture("Peugeot","408","");
 $ve1 = new VoitureElec("BMW","I3","100");
 
 echo $v1->getInfos()."<br>";
