@@ -4,56 +4,87 @@
 
 class Voiture {
     
+    // attributs
     private string $_marque;
-    private string $_modèle;
-    private string $_nbPortes;
-    private bool $_statutD = false;
-    private string $_vitesseActuelle;
+    private string $_modele;
+    private int $_nbPortes;
+    private float $_vitesseActuelle;
+    private bool $_isDemarree;
+     
+    // constructeur
+    public function __construct(string $marque, string $modele, int $nbPortes, float $vitesseActuelle = 0, $isDemarree = false) {
+        $this->_marque = $marque;
+        $this->_modele = $modele;
+        $this->_nbPortes = $nbPortes;
+
+        $this->_vitesseActuelle = $vitesseActuelle;
+        $this->_isDemarree = $isDemarree;
+    }
+
+    // une affectation (qui est une instruction), c'est le fait de mettre une valeur (pour les types primitifs, sinon c'est mettre une référence d'objet) dans une variable (ou attribut, ...)
+    // =, +=, -=, *=, /=, %=, .=
+
+    // un opérateur de comparaison, ça sert à comparer 2 valeurs/objets entre eux
+    // il existe plusieurs familles d'opérateurs de comparaison :
+    //      - opérateurs d'égalité/inégalité : ==, ===, !=, !==
+    //      - de comparaison (de nombres, de dates, ...) : <, <=, >, >=
+    //      - ...
+
+    // opérateurs logiques (sur les booléens)
+    // ! (NON), && (ET), || (OU)
     
-    public function vitesseActuelle() {
-        $this->_vitesseActuelle;
-        echo "Sa vitesse actuelle est de :".$this->_vitesseActuelle." Km/h<br><br>";
-    }
-
+    // méthodes
     public function demarrer() {
-        if($this->_statutD = true) {
-            echo "<br>Le véhicule ".$this->_marque." est démarré.<br>";
-        }else{
-            echo "<br>Le véhicule ".$this->_marque." est stoppé.<br>";
-        
+        if($this->_isDemarree) {
+            // la voiture est déjà démarrée, on ne va pas la redémarrer
+            echo "Le véhicule ".$this->_marque." ".$this->_modele." est déjà démarré.";
+        } else {
+            // la voiture est stoppée, on accepte donc de la démarrer (et on le fait)
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." est actuellement stoppé.<br>";
+            $this->_isDemarree = true;
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." démarre.<br>";
         }
     }
 
-    public function accelerer(int $accel) {
-        if($this->_statutD = false) {
-            echo "Le véhicule ".$this->_marque." doit être allumé pour accélérer";
+    public function accelerer($accel) {
+        // if($this->_isDemarree && $this->_vitesseActuelle + $accel <= 130) {
+        if(!$this->_isDemarree) {
+            echo "Le véhicule ".$this->_marque." ".$this->_modele."veut accélérer de ".$accel."<br>Pour accélerer il faut démarrer le véhicule ".$this->_marque." ".$this->_modele." !<br>";
         }
-        else{
-        echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." accélère de ".$this->_vitesseActuelle+=$accel." <br>";
+        else {
+            $this->_vitesseActuelle += $accel; // a += b   <=>   a = a + b
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." accélère de ".$accel." Km/h<br>";
         }
     }
 
 
     public function stopper() {
-        if($this->_statutD = false) {
-            echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." est stoppé.<br>";
+        if(!$this->_isDemarree) {
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." est déjà stoppé.<br>";
         }
         else{
-            echo demarrer();
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." est actuellement démarré.";
+            $this->_isDemarree = false;
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modele." est stoppé.<br>";
         }
     }
 
+    // opérateur ternaire :
+    // condition ? siVrai : sinon
+
     public function info() {
-        echo "<br>Nom et modèle du véhicule : ".$this->_marque." ".$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." <br>".$this->demarrer().$this->vitesseActuelle();
+        echo "<br>Nom et modèle du véhicule : ".$this->_marque." ".$this->_modele."<br>Nombre de portes : ".$this->_nbPortes." <br>".($this->_isDemarree ? "Le véhicule ".$this->_marque." est démarrée" : "Le vehicule ".$this->_marque." est à l'arrêt")." <br>Sa vitesse actuelle est de :".$this->_vitesseActuelle." Km/h<br>";
     }
-     
-    public function __construct(string $marque,string $modèle, string $nbPortes, string $vitesseActuelle, int $accel) {
-        $this->_marque = $marque;
-        $this->_modèle = $modèle;
-        $this->_nbPortes = $nbPortes;
-        $this->_vitesseActuelle = $vitesseActuelle;
-        $this->_accel = $accel;
+
+    // méthode __toString() : permet de définir comment doit être représenté l'objet sous forme de string
+    // ! doit obligatoirement retourner un string
+    // est une méthode magique (magic method)
+
+    public function __toString() {
+        return $this->_marque." ".$this->_modele." ".$this->_nbPortes." ".$this->_vitesseActuelle." ".($this->_isDemarree ? "démarrée" : "stoppée")." <br>";
     }
+
+    // getters/setters
 
     public function getMarque() {
         return $this->_marque;
@@ -63,35 +94,55 @@ class Voiture {
         $this->_marque = $marque;
     }
 
-    public function getModèle() {
-        return $this->_modèle;
+    public function getModele() {
+        return $this->_modele;
     }
 
-    public function setModèle(string $modèle) {
-        $this->_modèle = $modèle;
+    public function setModele(string $modele) {
+        $this->_modele = $modele;
     }
 
     public function getNbPortes() {
         return $this->_nbPortes;
     }
 
-    public function setNbPortes(string $nbPortes) {
+    public function setNbPortes(int $nbPortes) {
         $this->_nbPortes = $nbPortes;
     }
-
-    public function __tostring() {
-        return $this->_marque." ".$this->_modèle." ".$this->_nbPortes." ".$this->_vitesseActuelle." ".$this->_accl." <br>";
+    
+    public function getVitesseActuelle() {
+        echo "Sa vitesse actuelle est de :".$this->_vitesseActuelle." Km/h<br>";
+        return $this->_vitesseActuelle;
     }
 
-}    
-
-$v1 = new Voiture("Peugeot","408","5","50","20");
-$v2 = new Voiture("Citroën","C4","3","0","0");
+}
 
 
 
+$v1 = new Voiture("Peugeot", "408", 5, 0, true);
+$v2 = new Voiture("Citroën", "C4", 3, 0, true);
 
 
+// appel implicite de la méthode magique __toString()
+//echo "<p>Voiture v1 : $v1</p>";
+//echo "<p>Voiture v1 : $v2</p>";
 
+// démarrer v1
+$v1->demarrer();
+// accélérer v2
+$v1->accelerer(50);
+// démarrer v2
+$v2->demarrer();
+// stopper v2
+$v2->stopper();
+// accélérer v2
+$v2->accelerer(20);
+// Vitesse Actuelle v1
+$v1->getVitesseActuelle();
+// Vitesse Actuelle v2
+$v2->getVitesseActuelle();
+
+echo "<h3>Infos véhicule 1</h3>";
 $v1->info();
+echo "<h3>Infos véhicule 2</h3>";
 $v2->info();

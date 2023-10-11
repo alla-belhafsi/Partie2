@@ -4,7 +4,7 @@ qui hérite (extends) de la classe Voiture et qui a une propriété supplémenta
 Instancier une voiture "classique" et une voiture "éléctrique" ayant les caractéristiques<br>
 suivantes:
 <li><b>Peugeot 408 :</b> $v1 = new Voiture ("Peugeot","408");</li>
-<li><b>BMW i3 150 :</b> $v2 = new VoitureElec ("BMW","I3","150");</li><br>
+<li><b>BMW i3 150 :</b> $v2 = new VoitureElec ("BMW","I3",150);</li><br>
 
 Votre Programme de test devra afficher les informations des 2 voitures de la façon suivante : <br><br>
 echo $v1->getInfos();<br/>
@@ -12,19 +12,27 @@ echo $ve1->getInfos();</p>
 
 <?php
 
+// classe = abstrait = un modèle, un template, un moule.
+// objet = concret = une instance de classe (on s'est servi de la classe (du modèle) et on en a fait un objet réel, avec des attributs initialisés qui ont des valeurs précises)
 class Voiture {
+    // attributs/propriétés (attributes/properties) [de quoi est composé cette classe ? qu'est-ce qui définit cette classe ?]
     private string $_marque;
-    private string $_modèle;
-    private string $_autonomie;
-    private string $_getInfos;
+    private string $_modele;
    
 
-    public $attr1;
-    public function __construct(string $marque, string $modèle, string $autonomie) {
+    // constructeur (constructor) [initialise les attributs et crée une instance de la classe]
+    public function __construct(string $marque, string $modele) {
         $this->_marque = $marque;
-        $this->_modèle = $modèle;
-        $this->_autonomie = $autonomie;
+        $this->_modele = $modele;
     }
+
+    // méthodes (methods) [comportements, actions possibles sur un objet de cette classe]
+    
+    public function getInfos() {
+        return $this->_marque." ".$this->_modele." ";
+    }
+
+    // accesseurs/mutateurs (getters/setters) [récupérer / mettre à jour la valeur de l'attribut]
 
     public function getMarque() {
         return $this->_marque;
@@ -34,42 +42,44 @@ class Voiture {
         $this->_marque = $marque;
     }
 
-    public function getModèle() {
-        return $this->_modèle;
+    public function getModele() {
+        return $this->_modele;
     }
     
-    public function setModèle(string $_modèle) {
-        $this->_modèle = $_modèle;
+    public function setModele(string $_modele) {
+        $this->_modele = $_modele;
+    }
+}
+
+
+
+class VoitureElec extends Voiture {
+    
+    private int $_autonomie;
+
+    public function __construct(string $marque, string $modele, int $autonomie) {
+        parent::__construct($marque, $modele);
+        $this->_autonomie = $autonomie;
     }
     
     public function getAutonomie(){
         return $this->_autonomie;
     }
 
-    public function setAutonomie(){
+    public function setAutonomie($autonomie){
         $this->_autonomie = $autonomie;
-    }
-    
-    public function getInfos() {
-        return $this->_marque." ".$this->_modèle." ";
-    }
-}
-class VoitureElec extends Voiture {
-    
-    public $attr2;
-    public function __contruct($attr1, $attr2) {
-        parent::__construct($attr1);
-        $this->attr2 = $attr2;
     }
 
     public function getInfos() {
-        return parent::getInfos()." ".$this->getAutonomie();
+        return parent::getInfos() . " (" . $this->_autonomie . " km)";
     }
     
 }    
 
-$v1 = new Voiture("Peugeot","408","");
-$ve1 = new VoitureElec("BMW","I3","100");
+$v1 = new Voiture("Peugeot", "408");
+$ve1 = new VoitureElec("BMW", "I3", 150);
 
-echo $v1->getInfos()."<br>";
-echo $ve1->getInfos()."<br>";
+// $v1->setModèle("405");
+
+echo "Infos sur la voiture v1 : " . $v1->getInfos()."<br>";
+echo "Infos sur la voiture ve1 : " . $ve1->getInfos()."<br>";
