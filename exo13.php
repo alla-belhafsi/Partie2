@@ -7,7 +7,7 @@ class Voiture {
     private string $_marque;
     private string $_modèle;
     private string $_nbPortes;
-    private bool $_statutD = FALSE;
+    private bool $_statutD = false;
     private string $_vitesseActuelle;
     
     public function vitesseActuelle() {
@@ -25,7 +25,7 @@ class Voiture {
     }
 
     public function accelerer(int $accel) {
-        if($this->_statutD = FALSE) {
+        if($this->_statutD = false) {
             echo "Le véhicule ".$this->_marque." doit être allumé pour accélérer";
         }
         else{
