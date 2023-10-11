@@ -51,7 +51,7 @@ class Voiture {
     }
     
     public function getInfos() {
-        return $this->_marque." ".$this->_modèle." ".$this->_autonomie." ";
+        return $this->_marque." ".$this->_modèle." ";
     }
 }
 class VoitureElec extends Voiture {
@@ -60,6 +60,10 @@ class VoitureElec extends Voiture {
     public function __contruct($attr1, $attr2) {
         parent::__construct($attr1);
         $this->attr2 = $attr2;
+    }
+
+    public function getInfos() {
+        return parent::getInfos()." ".$this->getAutonomie();
     }
     
 }    
