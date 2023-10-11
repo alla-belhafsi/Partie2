@@ -16,7 +16,7 @@ class Voiture {
     }
 
     public function demarrer() {
-        if($this->_statutD = TRUE) {
+        if($this->_statutD = true) {
             echo "<br>Le véhicule ".$this->_marque." est démarré.<br>";
         }else{
             echo "<br>Le véhicule ".$this->_marque." est stoppé.<br>";
@@ -35,16 +35,16 @@ class Voiture {
 
 
     public function stopper() {
-        $this->_statutD = false;
-        $this->_vitesseActuelle = 0;
-        echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." est stoppé.<br>";
+        if($this->_statutD = false) {
+            echo "<br>Le véhicule ".$this->_marque." ".$this->_modèle." est stoppé.<br>";
+        }
+        else{
+            echo demarrer();
+        }
     }
 
     public function info() {
-        $this->_marque." ".$this->_modèle." ".$this->_nbPortes." <br>";
-        echo "<br>Nom et modèle du véhicule : ".$this->_marque." "
-        .$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." "
-        .$this->demarrer().$this->vitesseActuelle();
+        echo "<br>Nom et modèle du véhicule : ".$this->_marque." ".$this->_modèle."<br>Nombre de portes : ".$this->_nbPortes." <br>".$this->demarrer().$this->vitesseActuelle();
     }
      
     public function __construct(string $marque,string $modèle, string $nbPortes, string $vitesseActuelle, int $accel) {
@@ -80,7 +80,7 @@ class Voiture {
     }
 
     public function __tostring() {
-        return $this->_marque." ".$this->_modèle." ".$this->_nbPortes." <br>";
+        return $this->_marque." ".$this->_modèle." ".$this->_nbPortes." ".$this->_vitesseActuelle." ".$this->_accl." <br>";
     }
 
 }    
@@ -94,4 +94,4 @@ $v2 = new Voiture("Citroën","C4","3","0","0");
 
 
 $v1->info();
-//$v2->info();
+$v2->info();
